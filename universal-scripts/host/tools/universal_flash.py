@@ -5,9 +5,11 @@ from dataclasses import dataclass
 from serial.tools.list_ports import comports
 
 # Importing utility applications
+sys.path.append(os.path.join(os.path.dirname(__file__), 'firmware_compile'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'bootloader_flasher'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'sd_creator'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'uload_bootloader'))
+from firmware_compile import FirmwareBuilder, parse_args
 from bootloader_flash import BootloaderFlashUtil
 from sd_flash import SdFlashUtil
 from uload_bootloader_flash import UloadFlashUtil
@@ -77,6 +79,29 @@ class UniversalFlashUtil:
         self.selected_baud_rate = int(input(f"Enter baud rate (Default {self.selected_baud_rate}): ") or 115200)
         print(f"Selected port [{self.selected_port}] with baud rate: {self.selected_baud_rate}\n")
 
+    def prepare_binaries(self):
+        print("\n=== Building firmware artifacts ===")
+
+        # Map paths from images dir + flash_images.json
+        bl2_path = os.path.join(self.__imagesDir, "atf", "bl2-rz-cmn.bin")
+        bl31_path = os.path.join(self.__imagesDir, "atf", "bl31-rz-cmn.bin")
+        dtb_path = os.path.join(self.__imagesDir, "u-boot", "dtbs", self.boards_data[self.selected_board_name]["uboot_dtb"])
+        uboot_nodtb_path = os.path.join(self.__imagesDir, "u-boot", "u-boot-nodtb-rz-cmn.bin")
+
+        # Build the args namespace exactly as firmware-compile expects
+        args = parse_args([
+            "--board", self.selected_board_name,
+            "--method", self.boards_data[self.selected_board_name]["ipl_flash_method"],
+            "--bl2", bl2_path,
+            "--dtb", dtb_path,
+            "--bl31", bl31_path,
+            "--u-boot-nodtb", uboot_nodtb_path,
+            #"--out-dir", os.path.join(self.__imagesDir, "build_artifacts") # it depends, it can be deployed to target/images or custom dir.
+        ])
+
+        builder = FirmwareBuilder(args)
+        builder.run_all()
+
     def info_get(self):
         board_data = self.boards_data[self.selected_board_name]
 
@@ -136,6 +161,8 @@ class UniversalFlashUtil:
         self.input_menu()
         # Get information for the selected board
         self.info_get()
+        # Prepare firmware binaries before flashing
+        self.prepare_binaries()
 
         # Write Rootfs
         if(self.yes_no_prompt("Do you want to write the rootfs?")):
