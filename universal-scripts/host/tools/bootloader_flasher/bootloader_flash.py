@@ -40,7 +40,7 @@ class BootloaderFlashUtil:
 									dest='flashMethod',
 									action='store',
 									type=str,
-									choices=['emmc', 'qspi'],
+									choices=['emmc', 'qspi', 'esd'],
 									help='Flash method to use (defaults to: qspi).')
 
 		# Serial port arguments

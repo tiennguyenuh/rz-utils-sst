@@ -1,16 +1,18 @@
 {
     "rzv2l-evk": {
+        "soc": "v2l",
         "bl2": "bl2_bp_rzv2l-evk.srec",
         "board_identification": "rzv2l-evk-platform-settings.bin",
         "fip": "fip_rzv2l-evk.srec",
         "atf_fdts": "r9a07g054l2-smarc.dtb",
         "uboot_dtb": "smarc-rzv2l.dtb",
         "flash_writer": "Flash_Writer_SCIF_rzv2l-evk_PMIC.mot",
-        "ipl_flash_method": "qspi",
+        "ipl_flash_method": "emmc",
         "rootfs": "core-image-minimal.wic",
         "rootfs_flash_method": "udp"
     },
     "rzg2l-evk": {
+        "soc": "g2l",
         "bl2": "bl2_bp_rzg2l-evk.srec",
         "board_identification": "rzg2l-evk-platform-settings.bin",
         "fip": "fip_rzg2l-evk.srec",
@@ -22,6 +24,7 @@
         "rootfs_flash_method": "udp"
     },
     "rzg2l-sbc": {
+        "soc": "g2l",
         "bl2": "bl2_bp_rzg2l-sbc.srec",
         "board_identification": "rzg2l-sbc-platform-settings.bin",
         "fip": "fip_rzg2l-sbc.srec",
@@ -33,6 +36,7 @@
         "rootfs_flash_method": "udp"
     },
     "rzv2h-evk": {
+        "soc": "v2h",
         "bl2": "bl2_bp_spi_rzv2h-evk.srec",
         "board_identification": "rzv2h-evk-ver1.00-platform-settings.bin",
         "fip": "fip_rzv2h-evk.srec",
