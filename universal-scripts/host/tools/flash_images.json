@@ -7,7 +7,7 @@
         "atf_fdts": "r9a07g054l2-smarc.dtb",
         "uboot_dtb": "smarc-rzv2l.dtb",
         "flash_writer": "Flash_Writer_SCIF_rzv2l-evk_PMIC.mot",
-        "ipl_flash_method": "xspi",
+        "ipl_flash_method": "emmc",
         "rootfs": "core-image-minimal.wic",
         "rootfs_flash_method": "udp"
     },

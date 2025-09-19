@@ -259,16 +259,15 @@ class BootloaderFlashUtil:
 		# Write board identification
 		BIDFlashAddress = flashAddress["BID"]
 		self.__writeSerialCmd('EM_WB')
-		self.__writeSerialCmd('EM_W')
 		self.__serialRead('Select area')
 		self.__writeSerialCmd(BIDFlashAddress[0])
 
 		self.__serialRead('Please Input Start Address in sector')
 		self.__writeSerialCmd(BIDFlashAddress[1])
 
-		self.__serialRead('Please Input Program Start Address')
+		self.__serialRead('Please Input File size(byte)')
 		self.__writeSerialCmd(BIDFlashAddress[2])
-		self.__serialRead('please send ! (binary)')
+		self.__serialRead('please send binary file!')
 
 		print("Writing board identification...")
 		self.__writeFileToSerial(self.__args.bidImage)

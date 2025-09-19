@@ -161,16 +161,20 @@ class FirmwareBuilder:
 		bl2_arr = method_cfg.get("BL2")
 		if args.bl2_bp_vma:
 			self.bl2_bp_vma = hex_norm(args.bl2_bp_vma)
-		else:
+		elif (self.method == "xspi"):
 			self.bl2_bp_vma = hex_norm(bl2_arr[0])
+		elif (self.method == "emmc"):
+			self.bl2_bp_vma = hex_norm(bl2_arr[2])
 
 		print("bl2 out vma", self.bl2_bp_vma)
 		# FIP VMA get from toml unless overridden
 		fip_arr = method_cfg.get("FIP", [])
 		if args.fip_vma:
 			self.fip_vma = hex_norm(args.fip_vma)
-		else:
+		elif (self.method == "xspi"):
 			self.fip_vma = hex_norm(fip_arr[0])
+		elif (self.method == "emmc"):
+			self.fip_vma = hex_norm(fip_arr[2])
 
 		# FIP align & tb-kind
 		self.fip_align  = int(args.fip_align) if args.fip_align else 16

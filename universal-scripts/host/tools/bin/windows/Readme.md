@@ -61,7 +61,7 @@ mingw32-make   OPENSSL_DIR=/c/mingw64   CFLAGS+=" -I/c/mingw64/include"   LDFLAG
 
 ```powershell
 # Boot parameter
-.\bpgen.exe --soc v2h --image bl2.bin --mode {spi|mmc|scif|esd} --dest 0xADDR -o bl2_bp.bin [--copies N]
+.\bpgen.exe --soc v2h --image bl2.bin --mode {xspi|mmc|scif|esd} --dest 0xADDR -o bl2_bp.bin [--copies N]
 
 # Create an FIP package
 .\fiptool.exe create --soc-fw bl31.bin --nt-fw u-boot.bin fip.bin
